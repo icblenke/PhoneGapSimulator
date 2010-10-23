@@ -2,10 +2,10 @@
 <mx:WindowedApplication 
 	xmlns:mx="http://www.adobe.com/2006/mxml" 
 	layout="absolute"
-	width="{Util.getWidth(app.edgeL, app.rotation, app.edgeD)}" 
-	height="{app.height}" 
 	autoExit="true" 
 	scaleX="{app.scale}" scaleY="{app.scale}"
+	width="1024"
+	height="1024"
 	showGripper="false" showTitleBar="false" showStatusBar="false"
 	creationComplete="init()" xmlns:cc="cc.*"
 	horizontalScrollPolicy="off" verticalScrollPolicy="off"
@@ -13,26 +13,30 @@
 	
 	<mx:Script>
 		<![CDATA[
-			import nochump.util.zip.ZipFile;
-			import com.nitobi.event.SkinEvent;
-			import com.nitobi.view.UpdateAlert;
-			import com.nitobi.managers.UpdateManager;
-			import com.nitobi.event.MaskEvent;
-			import com.nitobi.event.BlinkEvent;
-			import gs.TweenLite;
-			import com.nitobi.event.VibrateEvent;
-			import com.nitobi.view.DebugPanel;
 			import com.nitobi.Const;
-			import com.nitobi.Util;
-			import com.nitobi.PhoneGapSimulatorApp;
 			import com.nitobi.CustomHost;
+			import com.nitobi.PhoneGapSimulatorApp;
+			import com.nitobi.Util;
+			import com.nitobi.event.BlinkEvent;
+			import com.nitobi.event.MaskEvent;
+			import com.nitobi.event.SkinEvent;
+			import com.nitobi.event.VibrateEvent;
+			import com.nitobi.managers.UpdateManager;
+			import com.nitobi.view.DebugPanel;
 			import com.nitobi.view.URLModal;
-			import mx.managers.PopUpManager;
-			import mx.rpc.http.HTTPService;
-			import mx.rpc.events.ResultEvent;
-			import nochump.util.zip.ZipFile;
-			import nochump.util.zip.ZipEntry;
+			import com.nitobi.view.UpdateAlert;
+			
 			import flash.utils.IDataInput;
+			
+			import gs.TweenLite;
+			
+			import mx.managers.PopUpManager;
+			import mx.rpc.events.ResultEvent;
+			import mx.rpc.http.HTTPService;
+			
+			import nochump.util.zip.ZipEntry;
+			import nochump.util.zip.ZipFile;
+
 			
 			[Bindable]
 			private var app:PhoneGapSimulatorApp = PhoneGapSimulatorApp.getInstance();
@@ -68,11 +72,19 @@
 				app.updateManager.addEventListener(UpdateManager.EVENT_UPDATE_AVAILABLE,onUpdateAvailable);
 				app.updateManager.addEventListener(UpdateManager.EVENT_UPDATE_READY,onUpdateReady);
 				
- 
 				var fileText:String = File.applicationDirectory.nativePath.replace(/\\/g, "/");
 				app.currentURL = 'file://' + fileText + '/www/index.html';
 				
 				addEventListener(Event.CLOSE, onClose);
+				
+				/*try {
+					this.nativeWindow.width=Util.getWidth(app.edgeL, app.rotation, app.edgeD);
+					this.nativeWindow.height=app.height;
+					trace("Stage Before: "+this.stage.nativeWindow.width+"x"+this.stage.nativeWindow.height);
+					trace("Stage After: "+this.stage.nativeWindow.width+"x"+this.stage.nativeWindow.height);
+				} catch(error:Error) {
+					trace("Error: "+error.toString());
+				}*/
 			}
 			
 			public function onInvoke(evt:InvokeEvent):void

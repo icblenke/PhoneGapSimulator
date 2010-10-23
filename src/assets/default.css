@@ -1,6 +1,7 @@
 /* CSS file */
+@namespace mx "library://ns.adobe.com/flex/mx";
 
-WindowedApplication{
+mx|WindowedApplication{
 	fontFamily: Arial;
 	borderStyle: none; 
 	backgroundAlpha: 0;
@@ -8,7 +9,7 @@ WindowedApplication{
 	modalTransparencyBlur: 5;
 }
 
-WindowedApplication, Window {
+mx|WindowedApplication, mx|Window {
 	color: #333;	
 }
 

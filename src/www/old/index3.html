@@ -1,0 +1,111 @@
+<html>
+	<head>
+		<title>Phone Gap Offline</title>
+		
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="minimum-scale=1.0, width=device-width, maximum-scale=1.1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="YES">
+		
+		
+		<style type="text/css" media="screen">
+			:focus { outline:0 }
+			body{
+				padding:100px 0;
+				font-family:Helvetica, Arial, sans-serif;
+				text-align:center;
+			}
+			button { 
+				width: 250px;
+			}
+		
+		</style>
+		<script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+		<script type="text/javascript" charset="utf-8"> 
+		
+		var getLocation = function() {
+		var suc = function(p){
+		alert(p.latitude + " " + p.longitude);
+		};
+		
+		var fail = function(){};
+		navigator.geolocation.getCurrentPosition(suc,fail);
+		}
+		
+		var getAccel = function() {
+			var suc = function(p){
+			alert(a.x + " " + a.y + " " + a.z);
+			};
+			
+			var fail = function(){};
+			navigator.accelerometer.getCurrentAcceleration(suc,fail);
+		}
+		
+		
+		function roundNumber(num) {
+			var dec = 3;
+			var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
+			return result;
+		}
+		
+		var watchAccel = function() {
+		var suc = function(a){
+		document.getElementById('t').innerHTML = roundNumber(a.x) + " " + roundNumber(a.y) + " " + roundNumber(a.z);
+		};
+		
+		var fail = function(){};
+		
+		var opt = {};
+		opt.frequency = 100;
+		timer = navigator.accelerometer.watchAcceleration(suc,fail,opt);
+		}
+		
+		var vibrate = function() {
+			navigator.notification.vibrate(0);
+		}
+		var beep = function() {
+			navigator.notification.beep(2);
+		}
+		
+		var getContact = function() {
+		var suc = function(){};
+		var fail = function(){};
+		
+		navigator.contactmanager.get(suc, fail);
+		
+		alert(navigator.contactmanager.contacts[3].name);
+		}
+		
+		var playSound = function() {
+		var a = new Media('beep.wav');
+		a.play();
+		}
+		
+		function test() {
+			alert('test');
+			navigator.accelerometer.getCurrentAcceleration(success, success)
+			
+		}
+		
+		function success(obj)
+		{
+			alert(obj);	
+		}
+		
+		</script>
+	
+	</head>
+	<body >
+		<button onClick="getLocation();">Get Geolocation</button><br />
+		<button onClick="getAccel();">Get Accelerometer</button><br />
+		<button onClick="watchAccel();">Watch Accelerometer</button><br />		
+		<button onClick="vibrate();">Vibrate</button><br />		
+		<button onClick="beep();">Beep</button><br />			
+		<button onClick="getContact();">Contact 3 </button><br />
+		<button onClick="playSound();">PlaySound </button><br />		
+		<button onClick="test();">Test </button><br />						
+		<div id="t"></div>
+		<div id="c"></div>	
+		
+	
+	</body>
+</html>
